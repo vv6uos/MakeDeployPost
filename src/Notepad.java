@@ -1,18 +1,19 @@
 
  
 import javax.swing.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Color;
 //import java.awt.Font;
 
  
 public class Notepad extends JFrame  {
     // 멤버변수
-    public JTextArea ita = new JTextArea(20,50);
-    public JTextArea ota = new JTextArea(20,50);
+    public static JTextArea ita = new JTextArea(20,50);
+    public static JTextArea ota = new JTextArea(20,50);
     public  JScrollPane upperPanel = new JScrollPane(ita); 
     public JScrollPane lowerPanel = new JScrollPane(ota);
-    public JButton btn =new JButton("정리");
+    public static JButton btn =new JButton("정리");
 
     JFileChooser chooser = new JFileChooser();
     JMenuBar mb = new JMenuBar();
@@ -54,6 +55,16 @@ public class Notepad extends JFrame  {
     }
     public static void main(String[] args) {
         new Notepad();
+
+        btn.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e ){
+                String workSheet=ita.getText();
+                Converter con = new Converter();
+                String result =con.toText(workSheet);
+                ota.setText(result);
+            }
+        });
     }
  
 }
