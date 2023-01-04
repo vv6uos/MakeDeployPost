@@ -1,4 +1,7 @@
- 
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+
 public class Converter {
     public String toText(String str){
         String[] strArr = str.split("\n");
@@ -20,6 +23,15 @@ public class Converter {
                 if(title==""){title=sentence;}
             }
         }
+        //파일 중복 확인 , 순서 정리 
+        //나중에 dll,cshtml, js, sql
+        LinkedHashSet<String> linkedHashSet= new LinkedHashSet<>(Arrays.asList(file_path));
+        String[] fileList=linkedHashSet.toArray(new String[] {});
+        //null빼고 해야되서 배열 위치 선정 
+        Arrays.sort(fileList,0,fileList.length-1);
+
+        //출력 부분 
+        //타이틀 수정 필요 
         result=title+"\n\n";
         for (String no : commitNo){
             if(no!=null){
@@ -27,8 +39,8 @@ public class Converter {
             }
         
         }
-
-        for(String fileNm : file_path){
+        // 수정 필요 
+        for(String fileNm : fileList){
             result+="\n";
             if(fileNm!=null){result+=fileNm;}
         }
